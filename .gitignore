@@ -32,6 +32,6 @@ log/
 target/
 
 # Other
-moodels/
+models/
 data/
 tmpFiles/
