@@ -1,4 +1,4 @@
-package parser;
+package parsing;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -7,10 +7,10 @@ import com.alibaba.fastjson.JSONObject;
 import java.io.*;
 
 /**
- * @author  Sherafgan Kandov (sherafgan.kandov@gmail.com)
+ * @author Sherafgan Kandov (sherafgan.kandov@gmail.com)
  * @version 2/3/17
  */
-public class Parser {
+public class CleanerMerger {
     private static final String TRAIN_RAW_DATA_PATH = "data/raw/train_val_annotation/train_val_videodatainfo.json";
     private static final String TEST_RAW_DATA_PATH = "data/raw/test_videodatainfo.json";
 
@@ -18,8 +18,7 @@ public class Parser {
     private static final String READY_TO_USE_SENTENCES_PATH = "data/ready/sentences_array.json";
 
     public static void main(String[] args) throws IOException {
-        String trainRawDataString =
-                readJsonFile(TRAIN_RAW_DATA_PATH);
+        String trainRawDataString = readJsonFile(TRAIN_RAW_DATA_PATH);
         String testRawDataString = readJsonFile(TEST_RAW_DATA_PATH);
         JSONObject trainRawJSON = JSON.parseObject(trainRawDataString);
         JSONObject testRawJSON = JSON.parseObject(testRawDataString);
@@ -43,7 +42,7 @@ public class Parser {
         sentences.addAll(testSentences);
         System.out.println("sentences together: " + sentences.size());
 
-        for(int i = 0; i<videos.size(); i++){
+        for (int i = 0; i < videos.size(); i++) {
             JSONObject tmp = (JSONObject) videos.get(i);
             tmp.remove("category");
             tmp.remove("split");
@@ -58,7 +57,7 @@ public class Parser {
         FileWriter fw = new FileWriter("data/ready/sentences.txt");
         BufferedWriter bw = new BufferedWriter(fw);
         for (int i = 0; i < sentences.size(); i++) {
-            JSONObject tmpObj =  (JSONObject) sentences.get(i);
+            JSONObject tmpObj = (JSONObject) sentences.get(i);
             String sentence = (String) tmpObj.get("caption");
             bw.write(sentence + ".\n");
         }
@@ -66,10 +65,10 @@ public class Parser {
         bw.close();
     }
 
-    public static void writeOutJSON(JSONArray videos, String newJSONFilePath) throws IOException {
+    public static void writeOutJSON(JSONArray jsonArray, String newJSONFilePath) throws IOException {
         FileWriter fwForVideos = new FileWriter(newJSONFilePath);
         BufferedWriter bwForVideos = new BufferedWriter(fwForVideos);
-        bwForVideos.write(videos.toJSONString());
+        bwForVideos.write(jsonArray.toJSONString());
         bwForVideos.flush();
         bwForVideos.close();
     }

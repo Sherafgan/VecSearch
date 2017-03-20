@@ -24,7 +24,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>indexer.Indexer</mainClass>
+                            <mainClass>indexing.Indexer</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -62,6 +62,17 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.22</version>
+        </dependency>
+        <!--Lettuce for Redis-->
+        <dependency>
+            <groupId>biz.paluch.redis</groupId>
+            <artifactId>lettuce</artifactId>
+            <version>4.3.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>com.vectorization</groupId>
+            <artifactId>vectorization-server</artifactId>
+            <version>0.0.3</version>
         </dependency>
     </dependencies>
 
