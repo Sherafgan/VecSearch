@@ -35,3 +35,6 @@ target/
 models/
 data/
 tmpFiles/
+libs/
+VecSearchData/
+*.log
