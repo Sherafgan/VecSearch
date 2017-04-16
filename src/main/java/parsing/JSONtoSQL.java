@@ -14,7 +14,7 @@ import java.io.IOException;
  */
 public class JSONtoSQL {
     private static final String VIDEOS_JSON_DATA_PATH = "data/ready/videos_array.json";
-    private static final String VIDEOS_SQL_DUMP_PATH = "tmpFiles/videos_dump.sql";
+    private static final String VIDEOS_SQL_DUMP_PATH = "data/videos_dump.sql";
 
     public static void main(String[] args) throws IOException {
         String videosJSONfile = CleanerMerger.readJsonFile(VIDEOS_JSON_DATA_PATH);
