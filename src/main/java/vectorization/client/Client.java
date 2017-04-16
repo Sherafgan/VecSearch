@@ -17,7 +17,7 @@
  */
 package vectorization.client;
 
-import com.vectorization.core.SSException;
+//import com.vectorization.core.SSException;
 import com.vectorization.util.IO;
 
 import java.io.BufferedReader;
@@ -85,11 +85,11 @@ public class Client {
 	}
 
 	public void sendRequest(String request) {
-		try {
-			System.out.println(handler.processRequest(request));
-		} catch (SSException e) {
-			System.out.println(e.getMessage());
-		}
+//		try {
+//			System.out.println(handler.processRequest(request));
+//		} catch (SSException e) {
+//			System.out.println(e.getMessage());
+//		}
 	}
 
 	public static void main(String[] args) {
