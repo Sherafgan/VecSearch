@@ -4,14 +4,15 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.BasicConfigurator;
-import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.word2vec.Word2Vec;
 import parsing.CleanerMerger;
+import util.StartupPipeline;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,16 +22,14 @@ import java.util.List;
  */
 public class Vectorizer {
     private final static String SENTENCES_JSON_ARRAY_PATH = "data/ready/sentences_array.json";
-    private final static String GNC_MODEL_PATH = "models/GoogleNews-vectors-negative300.bin.gz";
 
     private static final int TOTAL_DESCRIPTIONS_PER_VIDEO = 20;
-    private static final int DESCRIPTIONS_PER_VIDEO = 1; // 1/19 Index/Test split
+    private static final int DESCRIPTIONS_PER_VIDEO = 20; // Index/Test split
 
     public static void main(String[] args) throws IOException {
         BasicConfigurator.configure();
 
-        File gModel = new File(GNC_MODEL_PATH);
-        Word2Vec word2Vec = WordVectorSerializer.readWord2VecModel(gModel);
+        Word2Vec word2Vec = StartupPipeline.getWord2Vec();
 
         List<String> videoIds = new LinkedList<>();
         List<double[]> videoVectors = new LinkedList<>();
@@ -38,7 +37,7 @@ public class Vectorizer {
         String sentencesJSON = CleanerMerger.readJsonFile(SENTENCES_JSON_ARRAY_PATH);
         JSONArray sentences = JSON.parseArray(sentencesJSON);
         int counter = 0;
-        for (int i = 0; i < sentences.size(); i++) {
+        for (int i = 0; i < 260; i++) { // 13x20
             JSONObject sentence = (JSONObject) sentences.get(i);
             String caption = (String) sentence.get("caption");
             String[] words = caption.split("\\s+");
@@ -74,7 +73,7 @@ public class Vectorizer {
     }
 
     private static void writeOutDbIndexData(List<String> videoIds, List<double[]> videoVectors) throws IOException {
-        FileWriter fw = new FileWriter("tmpFiles/dbIndexData_" + DESCRIPTIONS_PER_VIDEO
+        FileWriter fw = new FileWriter("tmpFiles/test_rounding_vectors_13x20_dbIndexData_" + DESCRIPTIONS_PER_VIDEO
                 + "-" + (TOTAL_DESCRIPTIONS_PER_VIDEO - DESCRIPTIONS_PER_VIDEO) + "_split" + ".txt");
         BufferedWriter bw = new BufferedWriter(fw);
 
@@ -101,6 +100,15 @@ public class Vectorizer {
         return vectorString;
     }
 
+    public static List<Double> convertStringVectorToListOfDoubles(String vector) {
+        List<Double> result = new LinkedList<>();
+        String[] parsedVector = vector.trim().split(",");
+        for (int i = 0; i < parsedVector.length; i++) {
+            result.add(Double.parseDouble(parsedVector[i]));
+        }
+        return result;
+    }
+
     public static double[] getAverageOfVectors(List<double[]> wordsVectors) {
         double[] avrOfVectors = new double[wordsVectors.get(0).length];
         double[] sumOfVectors = new double[wordsVectors.get(0).length];
@@ -112,6 +120,18 @@ public class Vectorizer {
         for (int i = 0; i < sumOfVectors.length; i++) {
             avrOfVectors[i] = (sumOfVectors[i] / wordsVectors.size());
         }
+        for (int i = 0; i < avrOfVectors.length; i++) {
+            Double toRound = avrOfVectors[i];
+            avrOfVectors[i] = round(toRound, 1);
+        }
         return avrOfVectors;
+    }
+
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = new BigDecimal(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 }

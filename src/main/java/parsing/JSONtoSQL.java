@@ -32,13 +32,13 @@ public class JSONtoSQL {
 
         JSONObject firstVideoInfo = (JSONObject) videosJSONArray.get(0);
         dump = dump + "\t('" + firstVideoInfo.getString("video_id") + "', '"
-                + firstVideoInfo.getString("url") + "', " + firstVideoInfo.get("start time") + ", "
+                + firstVideoInfo.getString("url") + "', " + firstVideoInfo.get("open time") + ", "
                 + firstVideoInfo.get("end time") + ")";
 
         for (int i = 1; i < videosJSONArray.size(); i++) {
             JSONObject currentVideoInfo = (JSONObject) videosJSONArray.get(i);
             dump = dump + ", \n \t('" + currentVideoInfo.getString("video_id") + "', '"
-                    + currentVideoInfo.getString("url") + "', " + currentVideoInfo.get("start time") + ", "
+                    + currentVideoInfo.getString("url") + "', " + currentVideoInfo.get("open time") + ", "
                     + currentVideoInfo.get("end time") + ")";
         }
         dump = dump + ";\n\n";

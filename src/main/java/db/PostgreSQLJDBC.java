@@ -22,7 +22,7 @@ public class PostgreSQLJDBC {
         try {
             Class.forName("org.postgresql.Driver");
             c = DriverManager
-                    .getConnection("jdbc:postgresql://localhost:5432/vecsearch",
+                    .getConnection("jdbc:postgresql://localhost:5432/postgres",
                             "postgres", "postgres");
             c.setAutoCommit(false);
             System.out.println("Opened database successfully");
@@ -37,7 +37,7 @@ public class PostgreSQLJDBC {
                 segments.put(rs.getFloat("start_time"));
                 segments.put(rs.getFloat("end_time"));
                 videoDetails.append("segments", segments);
-//                videoDetails.append("start time", rs.getFloat("start_time"));
+//                videoDetails.append("open time", rs.getFloat("start_time"));
 //                videoDetails.append("end time", rs.getFloat("end_time"));
             }
             rs.close();

@@ -2,7 +2,7 @@ package servlets;
 
 import db.PostgreSQLJDBC;
 import org.json.JSONArray;
-import searching.SearchSim;
+import searching.Search;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +21,7 @@ public class SearchServlet extends HttpServlet {
         String searchText = request.getParameter("searchText");
 
         //Get nearest videos' IDs
-        List<String> videoIDs = SearchSim.search(searchText);
+        List<String> videoIDs = Search.search(searchText);
 
         //Retrieve video details from SQL DB
         JSONArray videosRetrieved = PostgreSQLJDBC.retrieveVideoDetails(videoIDs);

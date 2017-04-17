@@ -32,9 +32,10 @@ log/
 target/
 
 # Other
+out/
 src/main/java/tmp/
 models/
-tmpFiles/
+tmpFiles/big/
 libs/
 VecSearchData/
 Auth/

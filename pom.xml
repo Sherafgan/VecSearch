@@ -24,7 +24,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>Main</mainClass>
+                            <mainClass>indexing.Vectorizer</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

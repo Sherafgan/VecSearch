@@ -1,4 +1,4 @@
-package indexing;
+package util;
 
 import javafx.util.Pair;
 
