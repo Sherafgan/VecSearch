@@ -4,11 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.BasicConfigurator;
+import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.word2vec.Word2Vec;
 import parsing.CleanerMerger;
-import util.StartupPipeline;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -21,6 +22,7 @@ import java.util.List;
  * @version 2/3/17
  */
 public class Vectorizer {
+    private final static String GNC_MODEL_PATH = "models/GoogleNews-vectors-negative300.bin.gz";
     private final static String SENTENCES_JSON_ARRAY_PATH = "data/ready/sentences_array.json";
 
     private static final int TOTAL_DESCRIPTIONS_PER_VIDEO = 20;
@@ -29,7 +31,8 @@ public class Vectorizer {
     public static void main(String[] args) throws IOException {
         BasicConfigurator.configure();
 
-        Word2Vec word2Vec = StartupPipeline.getWord2Vec();
+        File gModel = new File(GNC_MODEL_PATH);
+        Word2Vec word2Vec = WordVectorSerializer.readWord2VecModel(gModel);
 
         List<String> videoIds = new LinkedList<>();
         List<double[]> videoVectors = new LinkedList<>();
