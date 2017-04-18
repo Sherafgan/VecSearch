@@ -19,7 +19,7 @@ public class Indexer {
 
     private static final int DESCRIPTIONS_PER_VIDEO_FOR_NAME_OF_FIle = 20;
 
-    private final static String DB_INDEX_DATA_FILENAME = "tmpFiles/test_rounding_vectors_13x20_dbIndexData_"
+    private final static String DB_INDEX_DATA_FILENAME = "tmpFiles/test_rounding_vectors_improved_13x20_dbIndexData_"
             + DESCRIPTIONS_PER_VIDEO_FOR_NAME_OF_FIle
             + "-" + (TOTAL_DESCRIPTIONS_PER_VIDEO - DESCRIPTIONS_PER_VIDEO_FOR_NAME_OF_FIle) + "_split" + ".txt";
 

@@ -24,7 +24,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>indexing.Vectorizer</mainClass>
+                            <mainClass>Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -42,6 +42,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.kennycason</groupId>
+            <artifactId>kumo</artifactId>
+            <version>1.8</version>
+        </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>

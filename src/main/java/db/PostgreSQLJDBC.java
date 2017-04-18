@@ -7,7 +7,8 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.List;
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * @author Sherafgan Kandov (sherafgan.kandov@gmail.com)
@@ -51,10 +52,11 @@ public class PostgreSQLJDBC {
         return videoDetails;
     }
 
-    public static JSONArray retrieveVideoDetails(List<String> videoIDs) {
+    public static JSONArray retrieveVideoDetails(Set<String> videoIDs) {
         JSONArray videosDetails = new JSONArray();
-        for (int i = 0; i < videoIDs.size(); i++) {
-            videosDetails.put(retrieveVideoDetails(videoIDs.get(i)));
+        Iterator iterator = videoIDs.iterator();
+        while (iterator.hasNext()) {
+            videosDetails.put(retrieveVideoDetails(iterator.next().toString()));
         }
         return videosDetails;
     }

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author Sherafgan Kandov (sherafgan.kandov@gmail.com)
@@ -21,7 +21,7 @@ public class SearchServlet extends HttpServlet {
         String searchText = request.getParameter("searchText");
 
         //Get nearest videos' IDs
-        List<String> videoIDs = Search.search(searchText);
+        Set<String> videoIDs = Search.search(searchText);
 
         //Retrieve video details from SQL DB
         JSONArray videosRetrieved = PostgreSQLJDBC.retrieveVideoDetails(videoIDs);

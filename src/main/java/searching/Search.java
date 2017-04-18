@@ -7,7 +7,7 @@ import org.deeplearning4j.models.word2vec.Word2Vec;
 import util.StartupPipeline;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 /**
  * @author Sherafgan Kandov (sherafgan.kandov@gmail.com)
@@ -17,7 +17,7 @@ public class Search {
 
     private final static Integer K_NEAREST = 10;
 
-    public static List<String> search(String searchText) {
+    public static Set<String> search(String searchText) {
         BasicConfigurator.configure();
 
         Word2Vec word2Vec = StartupPipeline.getWord2Vec();
