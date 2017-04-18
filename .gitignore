@@ -33,7 +33,6 @@ target/
 
 # Other
 out/
-src/main/java/tmp/
 models/
 tmpFiles/big/
 libs/
