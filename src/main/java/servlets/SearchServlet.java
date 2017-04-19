@@ -20,17 +20,31 @@ public class SearchServlet extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String searchText = request.getParameter("searchText");
 
-        //Get nearest videos' IDs
-        Set<String> videoIDs = Search.search(searchText);
+        if (searchText != null) {
+            if (!searchText.trim().equals("")) {
+                //Get nearest videos' IDs
+                Set<String> videoIDs = Search.search(searchText);
 
-        //Retrieve video details from SQL DB
-        JSONArray videosRetrieved = PostgreSQLJDBC.retrieveVideoDetails(videoIDs);
+                try {
+                    //Retrieve video details from SQL DB
+                    JSONArray videosRetrieved = PostgreSQLJDBC.retrieveVideoDetails(videoIDs);
 
-        //Send retrieved results to client
-        response.setContentType("application/json");
-        response.setCharacterEncoding("utf-8");
-        String JsonArrayToWrite = videosRetrieved.toString();
-        response.getWriter().write(JsonArrayToWrite);
-        response.setStatus(HttpServletResponse.SC_OK);
+                    //Send retrieved results to client
+                    response.setContentType("application/json");
+                    response.setCharacterEncoding("utf-8");
+                    String JsonArrayToWrite = videosRetrieved.toString();
+                    response.getWriter().write(JsonArrayToWrite);
+                    response.setStatus(HttpServletResponse.SC_OK);
+                } catch (NullPointerException e) {
+
+                    response.setStatus(HttpServletResponse.SC_EXPECTATION_FAILED);
+                }
+            } else {
+                System.out.println("[IO]: SEARCH TEXT IS EMPTY");
+            }
+        } else {
+            System.out.println("[IO]: SEARCH TEXT IS NULL");
+        }
+
     }
 }

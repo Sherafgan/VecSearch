@@ -36,9 +36,10 @@ public class VectorizationDB {
                 id = id_splitted[0];
                 result.add(id);
             }
+            return result;
+        } else {
+            return null;
         }
-
-        return result;
     }
 
     public static void open() {
