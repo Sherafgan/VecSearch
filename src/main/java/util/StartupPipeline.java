@@ -11,7 +11,8 @@ import java.io.File;
  * @version 4/18/17
  */
 public class StartupPipeline {
-    private final static String GNC_MODEL_PATH = "/root/VecSearch/models/GoogleNews-vectors-negative300.bin.gz";
+    private final static String GNC_MODEL_PATH =
+            System.getProperty("user.dir") + "/models/GoogleNews-vectors-negative300.bin.gz";
 
     private static final File gModel = new File(GNC_MODEL_PATH);
     private static final Word2Vec word2Vec = WordVectorSerializer.readWord2VecModel(gModel);
