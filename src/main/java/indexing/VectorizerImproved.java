@@ -24,8 +24,8 @@ import java.util.Set;
  * @version 4/18/17
  */
 public class VectorizerImproved {
-    private final static String GNC_MODEL_PATH = "models/GoogleNews-vectors-negative300.bin.gz";
-    private final static String SENTENCES_JSON_ARRAY_PATH = "data/ready/sentences_array.json";
+    private final static String GNC_MODEL_PATH = System.getProperty("user.dir") + "/models/GoogleNews-vectors-negative300.bin.gz";
+    private final static String SENTENCES_JSON_ARRAY_PATH = System.getProperty("user.dir") + "/data/ready/sentences_array.json";
 
     private static final int TOTAL_DESCRIPTIONS_PER_VIDEO = 20;
     private static final int DESCRIPTIONS_PER_VIDEO = 20; // Index/Test split
