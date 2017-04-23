@@ -6,10 +6,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.kennycason.kumo.WordFrequency;
 import com.kennycason.kumo.nlp.FrequencyAnalyzer;
 import org.apache.log4j.BasicConfigurator;
+import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.word2vec.Word2Vec;
 import parsing.CleanerMerger;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -33,9 +35,8 @@ public class VectorizerImproved {
     public static void main(String[] args) throws IOException {
         BasicConfigurator.configure();
 
-//        File gModel = new File(GNC_MODEL_PATH);
-//        Word2Vec word2Vec = WordVectorSerializer.readWord2VecModel(gModel);
-        Word2Vec word2Vec = null;
+        File gModel = new File(GNC_MODEL_PATH);
+        Word2Vec word2Vec = WordVectorSerializer.readWord2VecModel(gModel);
 
         List<String> videoIds = new LinkedList<>();
         List<double[]> videoVectors = new LinkedList<>();
