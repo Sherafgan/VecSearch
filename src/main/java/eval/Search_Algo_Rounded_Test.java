@@ -14,7 +14,7 @@ import java.util.Set;
 public class Search_Algo_Rounded_Test {
     private static final int TOTAL_DESCRIPTIONS_PER_VIDEO = 20;
     private static final int DESCRIPTIONS_PER_VIDEO = 20;
-    private static final String TEST_VECTORS_PATH = "tmpFiles/test_rounding_vectors_improved_66x20_dbIndexData_"
+    private static final String TEST_VECTORS_PATH = "tmpFiles/test_13x20_dbIndexData_"
             + DESCRIPTIONS_PER_VIDEO
             + "-" + (TOTAL_DESCRIPTIONS_PER_VIDEO - DESCRIPTIONS_PER_VIDEO) + "_split" + ".txt";
 

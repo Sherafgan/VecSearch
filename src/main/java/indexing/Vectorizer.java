@@ -6,7 +6,7 @@ import com.alibaba.fastjson.JSONObject;
 import org.apache.log4j.BasicConfigurator;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.word2vec.Word2Vec;
-import parsing.CleanerMerger;
+import preprocessing.CleanerMerger;
 
 import java.io.BufferedWriter;
 import java.io.File;

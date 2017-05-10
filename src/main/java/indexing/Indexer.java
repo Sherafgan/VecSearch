@@ -19,7 +19,7 @@ public class Indexer {
 
     private static final int DESCRIPTIONS_PER_VIDEO_FOR_NAME_OF_FIle = 20;
 
-    private final static String DB_INDEX_DATA_FILENAME = "tmpFiles/test_rounding_vectors_improved_66x20_dbIndexData_"
+    private final static String DB_INDEX_DATA_FILENAME = "tmpFiles/test_13x20_dbIndexData_"
             + DESCRIPTIONS_PER_VIDEO_FOR_NAME_OF_FIle
             + "-" + (TOTAL_DESCRIPTIONS_PER_VIDEO - DESCRIPTIONS_PER_VIDEO_FOR_NAME_OF_FIle) + "_split" + ".txt";
 
@@ -54,31 +54,34 @@ public class Indexer {
         String previousID = videoIdAndVector.getKey();
 
         for (int i = 1; i < 990; i++) { //indexing 66 videos with 15 annotations per video
-            io.hasNextPair();
-            videoIdAndVector = io.getNextPair();
-            if (videoIdAndVector.getKey().equals(previousID)) {
-                counter++;
-            } else {
-                counter = 1;
-            }
-
-            System.out.println(StatementBuilders
-                    .insert(Vectors.createVector(videoIdAndVector.getKey() + "_" + (counter),
-                            Vectorizer.convertStringVectorToListOfDoubles(videoIdAndVector.getValue())))
-                    .into("videos")
-                    .execute(connection));
-
-            previousID = videoIdAndVector.getKey();
-
-            if (counter == DESCRIPTIONS_PER_VIDEO) {
-                for (int j = 0; j < (TOTAL_DESCRIPTIONS_PER_VIDEO - DESCRIPTIONS_PER_VIDEO); j++) {
-                    io.hasNextPair();
-                    io.getNextPair();
+            if (io.hasNextPair()) {
+                videoIdAndVector = io.getNextPair();
+                if (videoIdAndVector.getKey().equals(previousID)) {
+                    counter++;
+                } else {
+                    counter = 1;
                 }
-                counter = 0;
-            }
 
-            System.out.println("[INFO] INDEXED: " + (i + 1));
+                System.out.println(StatementBuilders
+                        .insert(Vectors.createVector(videoIdAndVector.getKey() + "_" + (counter),
+                                Vectorizer.convertStringVectorToListOfDoubles(videoIdAndVector.getValue())))
+                        .into("videos")
+                        .execute(connection));
+
+                previousID = videoIdAndVector.getKey();
+
+                if (counter == DESCRIPTIONS_PER_VIDEO) {
+                    for (int j = 0; j < (TOTAL_DESCRIPTIONS_PER_VIDEO - DESCRIPTIONS_PER_VIDEO); j++) {
+                        io.hasNextPair();
+                        io.getNextPair();
+                    }
+                    counter = 0;
+                }
+
+                System.out.println("[INFO] INDEXED: " + (i + 1));
+            } else {
+                System.out.println("[INFO] FAILED INDEXING: " + (i + 1));
+            }
         }
         io.close();
     }
