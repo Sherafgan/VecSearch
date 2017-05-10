@@ -44,6 +44,7 @@ public class Indexer {
                 .execute(connection));
 
         int counter = 1;
+        io.hasNextPair();
         Pair<String, String> videoIdAndVector = io.getNextPair();
         System.out.println(StatementBuilders
                 .insert(Vectors.createVector(videoIdAndVector.getKey() + "_" + (counter),
@@ -53,6 +54,7 @@ public class Indexer {
         String previousID = videoIdAndVector.getKey();
 
         for (int i = 1; i < 990; i++) { //indexing 66 videos with 15 annotations per video
+            io.hasNextPair();
             videoIdAndVector = io.getNextPair();
             if (videoIdAndVector.getKey().equals(previousID)) {
                 counter++;
@@ -70,6 +72,7 @@ public class Indexer {
 
             if (counter == DESCRIPTIONS_PER_VIDEO) {
                 for (int j = 0; j < (TOTAL_DESCRIPTIONS_PER_VIDEO - DESCRIPTIONS_PER_VIDEO); j++) {
+                    io.hasNextPair();
                     io.getNextPair();
                 }
                 counter = 0;

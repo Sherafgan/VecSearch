@@ -22,11 +22,13 @@ public class Search_Algo_Rounded_Test {
         VectorizationDB.open();
         IO io = new IO(TEST_VECTORS_PATH);
         for (int i = 0; i < 1320; i++) {
-            io.hasNextPair();
-            Pair<String, String> pair = io.getNextPair();
-            System.out.print("[INFO] SEARCH " + (i + 1) + ": ");
-            Set<String> videoIDs = VectorizationDB.retrieveNearestVectorsIds(7, pair.getValue());
-            System.out.println();
+            if (io.hasNextPair()) {
+                Pair<String, String> pair = io.getNextPair();
+                System.out.print("[INFO] SEARCH " + (i + 1) + ": ");
+                Set<String> videoIDs = VectorizationDB.retrieveNearestVectorsIds(7, pair.getValue());
+                System.out.println();
+            }
+
         }
         VectorizationDB.close();
     }
