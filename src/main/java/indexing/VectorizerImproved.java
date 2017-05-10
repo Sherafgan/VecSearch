@@ -46,14 +46,14 @@ public class VectorizerImproved {
 
         //BEGIN: MOST FREQUENT WORDS
         List<Set<String>> listOfMostFrequentWords = new LinkedList<>();
-        for (int i = 1; i <= 13; i++) {
+        for (int i = 1; i <= 1320; i++) {
             List<String> videoTexts = new LinkedList<>();
             for (int j = (i - 1) * 20; j < 20 * i; j++) {
                 JSONObject sentence = (JSONObject) sentences.get(j);
                 videoTexts.add(sentence.get("caption").toString());
             }
-            final FrequencyAnalyzer frequencyAnalyzer = new FrequencyAnalyzer();
-            final java.util.List<WordFrequency> wordFrequencies = frequencyAnalyzer.load(videoTexts);
+            FrequencyAnalyzer frequencyAnalyzer = new FrequencyAnalyzer();
+            List<WordFrequency> wordFrequencies = frequencyAnalyzer.load(videoTexts);
 
             Set<String> mostFrequentWords = new HashSet<>();
             for (int k = 0; k < (wordFrequencies.size() * 35) / 100; k++) {
@@ -64,10 +64,10 @@ public class VectorizerImproved {
         //END
 
         int counter = 0;
-        for (int i = 0; i < 260; i++) { // 13x20
+        for (int i = 0; i < 1320; i++) { // 66x20
             JSONObject sentence = (JSONObject) sentences.get(i);
             String caption = (String) sentence.get("caption");
-            String[] words = caption.split("\\s+");
+            String[] words = caption.split("\\s");
             List<double[]> wordsVectors = new LinkedList<>();
 
             for (String word : words) {
@@ -103,7 +103,7 @@ public class VectorizerImproved {
     }
 
     private static void writeOutDbIndexData(List<String> videoIds, List<double[]> videoVectors) throws IOException {
-        FileWriter fw = new FileWriter("tmpFiles/test_rounding_vectors_improved_13x20_dbIndexData_" + DESCRIPTIONS_PER_VIDEO
+        FileWriter fw = new FileWriter("tmpFiles/test_rounding_vectors_improved_66x20_dbIndexData_" + DESCRIPTIONS_PER_VIDEO
                 + "-" + (TOTAL_DESCRIPTIONS_PER_VIDEO - DESCRIPTIONS_PER_VIDEO) + "_split" + ".txt");
         BufferedWriter bw = new BufferedWriter(fw);
 

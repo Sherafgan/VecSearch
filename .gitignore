@@ -32,6 +32,8 @@ log/
 target/
 
 # Other
+tmpFiles/
+src/main/java/tmp/
 out/
 models/
 tmpFiles/big/

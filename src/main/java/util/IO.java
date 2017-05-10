@@ -15,21 +15,37 @@ public class IO {
     private final FileReader fileReader;
     private final BufferedReader bufferedReader;
 
+    private String id;
+    private String vector;
+
     public IO(String fileName) throws FileNotFoundException {
         this.fileReader = new FileReader(fileName);
         this.bufferedReader = new BufferedReader(fileReader);
     }
 
-    public Pair<String, String> readNextPair() throws IOException {
+    public Pair<String, String> getNextPair() throws IOException {
         Pair<String, String> idAndVector;
-        String id = bufferedReader.readLine();
-        String vector = bufferedReader.readLine();
-        if (id != null && vector != null) {
+        if (this.id != null && this.vector != null) {
             idAndVector = new Pair<>(id, vector);
+            return idAndVector;
         } else {
-            throw new IOException();
+            return null;
         }
-        return idAndVector;
+    }
+
+    public boolean hasNextPair() {
+        Pair<String, String> idAndVector;
+        try {
+            this.id = bufferedReader.readLine();
+            this.vector = bufferedReader.readLine();
+            if (this.id != null && this.vector != null) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     public void close() throws IOException {
