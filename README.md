@@ -1,7 +1,7 @@
 # VecSearch: Getting  Started
 ### How to run VecSearch demo?
 
-To run VecSearch server and access it through browser (localhost:8080) we need to:
+To run VecSearch server and access it through browser (localhost:8080) you need to:
 
  - have [Git](https://git-scm.com/) 2.7 or later version installed.
  - have [Maven](https://maven.apache.org/) 3 or later version installed.
@@ -19,7 +19,7 @@ $ mkdir VecSearchFiles
 ```sh
 $ mv -r PATH/TO/VecSearch/ /PATH/TO/VecSearchFiles/
 ```
-(So far we have directory VecSearchFiles with VecSearch directory in it)
+(So far you have directory VecSearchFiles with VecSearch directory in it)
 3. Go to 'VecSearchFiles' directory
 ```sh
 $ cd VecSearchFiles
@@ -28,7 +28,7 @@ $ cd VecSearchFiles
 ```sh
 $ sudo -u postgres psql postgres < /VecSearch/data/videos_dump.sql
 ```
-5. Now we install the 'Vectorization' DBMS locally.
+5. Now you install the 'Vectorization' DBMS locally.
 ```sh
 $ git clone https://github.com/Sherafgan/vectorization-1.git
 $ cd vectorization-1
@@ -36,23 +36,23 @@ $ mvn clean package
 $ mvn install
 $ cd ..//
 ```
-6. We then run the installed 'Vectorization' database's server in the ```VecSearch``` directory to have all the DB's files indexed there. And we have ```Vectorization``` database's logs in ```VectorizationDBMS.log``` file in ```VecSearch``` directory, so we could see the status of the DB server and the indexing.
+6. You then run the installed 'Vectorization' database's server in the ```VecSearch``` directory to have all the DB's files indexed there. And you have ```Vectorization``` database's logs in ```VectorizationDBMS.log``` file in ```VecSearch``` directory, so you could see the status of the DB server and the indexing.
 ```sh
 $ cd VecSearch
 $ nohup java -jar ..//vectorization-1/similarity-database-node/target/similarity-database-node-0.0.5-SNAPSHOT.jar > VectorizationDBMS.log 2>&1 &
 ```
-7. To index the data to 'Vectorization' database, first we change the ```pom.xml``` file placed in ```VecSearch``` directory by setting the main class from ```Main``` to ```indexing.Indexer``` probably in the ```27```th line of the ```pom.xml```.
+7. To index the data to 'Vectorization' database, first you change the ```pom.xml``` file placed in ```VecSearch``` directory by setting the main class from ```Main``` to ```indexing.Indexer``` probably in the ```27```th line of the ```pom.xml```.
 ```sh
 $ nano pom.xml
 ```
 After changing, click ```Ctrl+X```, enter ```Y``` and press ```Enter```.
-8. Now we build the VecSearch project to have run indexing.
+8. Now you build the VecSearch project to have run indexing.
 ```sh
 $ mvn clean compile assembly:single
 $ java -jar target/VecSearch-0.7-SNAPSHOT-jar-with-dependencies.jar
 ```
-9. After indexing, now we can the demo.
--First, we in ```pom.xml``` file change main class from ```indexing.Indexex``` back to ```Main``` (similar steps as in ```7```th step).
+9. After indexing, now you can run the demo.
+-First, in ```pom.xml``` file you change main class from ```indexing.Indexex``` back to ```Main``` (similar steps as in ```7```th step).
 -Then, again
 ```sh
 $ mvn clean compile assembly:single
